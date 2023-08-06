@@ -47,6 +47,7 @@ def scaledLeastLoadedHeterogenous ( partitions: list[Partition], f:float, rate :
         index = chooseConsumerUsingHeuritic(lamdaUnpacked,lagUnpacked, rate)#Consumer(str(i), [],  85.0)
         cons = Consumer(str(consCount-1),[],rate[index])
         consumers.append(cons)
+        lamdaUnpacked = 0.0
         for i in range(len(partitions)):
             lamdaUnpacked += partitions[i].lamda
             lagUnpacked += partitions[i].lag
@@ -103,12 +104,12 @@ def testscaledLeastLoadedHeterogenous():
      print(part)
     print("==============")
 
-    cons = scaledLeastLoadedHeterogenous(partitions, 1.0,[100, 200])
+    cons = scaledLeastLoadedHeterogenous(partitions, 1.0,[100, 300])
     for c in range(len(cons)):
         print(cons[c])
 
 if __name__ == '__main__':
-    testscaledLeastLoadedHomegenous()
-    #testscaledLeastLoadedHeterogenous()
+    #testscaledLeastLoadedHomegenous()
+    testscaledLeastLoadedHeterogenous()
 
 
