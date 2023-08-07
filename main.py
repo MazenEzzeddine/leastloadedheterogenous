@@ -75,7 +75,6 @@ def computeReplicasLinearBinPackHeterogenousFraction():
         for p in range(5):
             partitions[p].lamda = point[t]/5.0
         bins = scaledLeastLoadedHeterogenous(partitions, 1, [180, 300])
-
         for bino in [180.0, 300.0]:
             for bin in bins:
                 if bin.mu == bino:
@@ -91,7 +90,6 @@ def plotWorkloadWithReplicasBinPack():
     replicasscaled = []
     for r in range(len(replicasbin)):
         replicasscaled.append(replicasbin[r]*85)
-
     plt.plot(time, wrkld)
     plt.plot(time, replicasscaled)
     plt.show()
@@ -104,7 +102,7 @@ def plotWorkloadWithReplicasBinPackHeterogenous():
     plt.plot(time, replicass[300])
     plt.show()
 
-def scaledLeastLoadedHeterogenous ( partitions: list[Partition], f:float, rate : list[int]):
+def scaledLeastLoadedHeterogenous( partitions: list[Partition], f:float, rate : list[int]):
     wsla=5
     partitions.sort(reverse=True)
     lamdaUnpacked:float =0
