@@ -30,12 +30,11 @@ partitions: list[Partition] = [p0, p1, p2, p3, p4]
 
 
 replicas = {100: 0, 300:0}
-replicass = {100: [], 300:[]}
+replicass = {180: [], 300:[]}
 
 
-heterobins = []
 
-def scaledLeastLoadedHomegenous (partitions: list[Partition], f:float):
+def scaledLeastLoadedHomegenous(partitions: list[Partition], f:float):
     partitions.sort(reverse=True)
     consCount = 1
     while True:
@@ -72,15 +71,12 @@ def computeReplicasLinearBinPackFraction():
 
 
 def computeReplicasLinearBinPackHeterogenousFraction():
-    # for t in range(600):
-    #     for bin in [100,300]:
-    #         replicass[bin].append(0)
     for t in range(600):
         for p in range(5):
             partitions[p].lamda = point[t]/5.0
-        bins = scaledLeastLoadedHeterogenous(partitions, 1, [100, 300])
+        bins = scaledLeastLoadedHeterogenous(partitions, 1, [180, 300])
 
-        for bino in [100.0, 300.0]:
+        for bino in [180.0, 300.0]:
             for bin in bins:
                 if bin.mu == bino:
                     replicass[bin.mu].append(bin.mu)
@@ -90,31 +86,6 @@ def computeReplicasLinearBinPackHeterogenousFraction():
 
 
 
-        # repli
-            # if bins[bin].mu >  replicas[bins[bin].mu]:
-            #     #replicas[bins[bin].mu] += bins[bin].mu - replicas[bins[bin].mu]
-            #     replicass[bins[bin].mu].append( bins[bin].mu - replicas[bins[bin].mu])
-            # elif bins[bin].mu <  replicas[bins[bin].mu]:
-            #     #replicas[bins[bin].mu] -=  replicas[bins[bin].mu] - bins[bin].mu
-            #     replicass[bins[bin].mu].append( replicas[bins[bin].mu] - bins[bin].mu)
-            #
-            # else:
-            #     replicas[bins[bin].mu].append(bins[bin].mu)
-            # if bins[bin].mu == 100.0:
-            #     replicas[100] += 1
-            # elif bins[bin].mu == 300.0:
-            #     replicas[100] += 1
-           # print(replicas[bins[bin].mu])
-
-    # print(replicas[100])
-    # print(replicas[300])
-
-    #
-    # scalingActions = 0
-    # for t in range(599):
-    #     if replicasbin[t] != replicasbin[t+1]:
-    #         scalingActions += 1
-    # print("Scaling Actions is: " + str(scalingActions))
 
 def plotWorkloadWithReplicasBinPack():
     replicasscaled = []
@@ -128,17 +99,9 @@ def plotWorkloadWithReplicasBinPack():
 
 
 def plotWorkloadWithReplicasBinPackHeterogenous():
-    # replicasscaled100 = []
-    # replicasscaled300 = []
-    # for r in range(600):
-    #      replicasscaled100.append(replicas[100])
-    #      replicasscaled300.append(replicas[300])
-
-
     plt.plot(time, wrkld)
-    plt.plot(time, replicass[100])
+    plt.plot(time, replicass[180])
     plt.plot(time, replicass[300])
-
     plt.show()
 
 def scaledLeastLoadedHeterogenous ( partitions: list[Partition], f:float, rate : list[int]):
@@ -242,7 +205,7 @@ def testscaledLeastLoadedHeterogenous():
      print(part)
     print("==============")
 
-    cons = scaledLeastLoadedHeterogenous(partitions, 1.0,[100, 300])
+    cons = scaledLeastLoadedHeterogenous(partitions, 1.0,[180, 300])
     for c in range(len(cons)):
         print(cons[c])
 
